@@ -21,7 +21,7 @@ return DefaultTabController(
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 100,
+                            height: 120,
                             child: Card(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -32,25 +32,21 @@ return DefaultTabController(
                                     child: const Wrap(
                                       direction: Axis.vertical,
                                       children: [
-                                        Text("Total MTM:"),
-                                        Text("1,075.80",
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                color: Colors.green)),
+                                        Text("Current:"),
+                                        Text("10075.80"),
+                                        Text("Invested:"),
+                                        Text("9005.10"),
                                       ],
                                     ),
                                   ),
                                   Container(
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 25),
-                                    child: const Wrap(
+                                    child: Wrap(
                                       direction: Axis.vertical,
                                       children: [
-                                        Text("Day's MTM:"),
-                                        Text("575.20",
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                color: Colors.green)),
+                                        const Text("Pnl:"),
+                                        priceText(1070.70),
                                       ],
                                     ),
                                   ),
@@ -73,28 +69,22 @@ return DefaultTabController(
                                   Container(
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 25),
-                                    child: const Wrap(
+                                    child: Wrap(
                                       direction: Axis.vertical,
                                       children: [
-                                        Text("Total MTM:"),
-                                        Text("1,075.80",
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                color: Colors.green)),
+                                        const Text("Total MTM:"),
+                                        priceText(788.20),
                                       ],
                                     ),
                                   ),
                                   Container(
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 25),
-                                    child: const Wrap(
+                                    child: Wrap(
                                       direction: Axis.vertical,
                                       children: [
-                                        Text("Day's MTM:"),
-                                        Text("575.20",
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                color: Colors.green)),
+                                        const Text("Day's MTM:"),
+                                        priceText(575.20),
                                       ],
                                     ),
                                   ),
@@ -109,4 +99,15 @@ return DefaultTabController(
                 ),
               ),
             );
+}
+
+
+Widget priceText(text) {
+  return Text(
+    text.toString(),
+    style: TextStyle(
+      color: text<0 ? Colors.red : Colors.green,
+      fontSize: 22,
+    ),
+  );
 }

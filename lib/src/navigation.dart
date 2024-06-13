@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'menu.dart';
 import 'dart:math';
@@ -19,11 +23,11 @@ class _NavigationWidgetState extends State<NavigationWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
+        onDestinationSelected: (int index) async{
           setState(() {
             currentPageIndex = index;
           });
-          data = refresh(context,index);
+          data = await refresh(context,index);
         },
         indicatorColor: Colors.amber,
         selectedIndex: currentPageIndex,
@@ -107,10 +111,26 @@ Widget mPage(String titleText,String data) {
   }
 }
 
-refresh(context, index){
+ refresh(context, index) async{
+  
   var rng =Random();
+  switch (index){
+  case 3:
+    var h = await getHoldings();
+    Logger().d(h);
+  }
   int i = rng.nextInt(100);
   ScaffoldMessenger.of(context).showSnackBar(
                  SnackBar(content: Text('Data reloaded. Data for $index is $i')));
   return "Data for $index is $i";
 }
+
+  Future<List<(String, int)>> getHoldings() async {
+    var url = Uri.http('192.168.29.6:8080', '/holdings');
+    final response = await http.get(url);
+    var jObj = jsonDecode(response.body);
+    if (jObj['Status'] == 'OK') {
+      Logger().d(jObj['Msg']);
+    }
+    return [("JIOFIN", 100), ("BEL", 110)];
+  }
