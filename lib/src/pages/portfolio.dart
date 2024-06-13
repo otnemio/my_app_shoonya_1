@@ -61,7 +61,7 @@ return DefaultTabController(
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 100,
+                            height: 120,
                             child: Card(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
